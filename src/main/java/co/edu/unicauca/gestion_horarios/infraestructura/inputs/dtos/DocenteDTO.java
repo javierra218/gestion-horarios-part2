@@ -3,21 +3,23 @@ package co.edu.unicauca.gestion_horarios.infraestructura.inputs.dtos;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class DocenteDTO {
-    @NotNull(message = "El nombre del docente no puede ser nulo")
-    @NotEmpty(message = "El nombre del docente no puede estar vacío")
+    @NotNull(message = "{docente.nombre.empty}")
+    @NotEmpty(message = "{docente.nombre.empty}")
+    @Size(min = 2, max = 50, message = "{docente.nombre.size}")
     private String nombre;
 
-    @NotNull(message = "El apellido del docente no puede ser nulo")
-    @NotEmpty(message = "El apellido del docente no puede estar vacío")
+    @NotNull(message = "{docente.apellido.empty}")
+    @NotEmpty(message = "{docente.apellido.empty}")
     private String apellido;
 
-    @NotNull(message = "El correo electrónico no puede ser nulo")
-    @Email(message = "Correo electrónico inválido")
+    @NotNull(message = "{docente.correo.empty}")
+    @Email(message = "{docente.correo.invalid}")
     private String correo;
 
-    @NotNull(message = "La oficina no puede ser nula")
+    @NotNull(message = "{docente.oficina.empty}")
     private OficinaDTO oficina;
 
     // Getters y Setters

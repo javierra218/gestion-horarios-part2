@@ -4,12 +4,12 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public class OficinaDTO {
-    @NotNull(message = "El nombre de la oficina no puede ser nulo")
-    @NotEmpty(message = "El nombre de la oficina no puede estar vacío")
+    @NotNull(message = "{oficina.nombre.empty}")
+    @NotEmpty(message = "{oficina.nombre.empty}")
     private String nombre;
 
-    @NotNull(message = "La ubicación de la oficina no puede ser nula")
-    @NotEmpty(message = "La ubicación de la oficina no puede estar vacía")
+    @NotNull(message = "{oficina.ubicacion.empty}")
+    @NotEmpty(message = "{oficina.ubicacion.empty}")
     private String ubicacion;
 
     // Getters y Setters

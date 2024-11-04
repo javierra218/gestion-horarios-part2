@@ -5,10 +5,19 @@ import java.sql.Time;
 
 public class FranjaHorariaDTOPeticion {
     // Propiedades
+    @NotNull(message = "{franja_horaria.cursoId.empty}")
     private Integer cursoId;
+
+    @NotNull(message = "{franja_horaria.espacioFisicoId.empty}")
     private Integer espacioFisicoId;
+
+    @NotNull(message = "{franja_horaria.dia.empty}")
     private String dia;
+
+    @NotNull(message = "{franja_horaria.horaInicio.empty}")
     private Time horaInicio;
+
+    @NotNull(message = "{franja_horaria.horaFin.empty}")
     private Time horaFin;
 
     // Getters y Setters
