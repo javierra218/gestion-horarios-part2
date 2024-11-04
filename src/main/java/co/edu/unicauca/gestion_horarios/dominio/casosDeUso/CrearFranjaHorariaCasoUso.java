@@ -3,9 +3,9 @@ package co.edu.unicauca.gestion_horarios.dominio.casosDeUso;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import co.edu.unicauca.gestion_horarios.dominio.modelos.FranjaHoraria;
 import co.edu.unicauca.gestion_horarios.dominio.modelos.Curso;
 import co.edu.unicauca.gestion_horarios.dominio.modelos.EspacioFisico;
+import co.edu.unicauca.gestion_horarios.dominio.modelos.FranjaHoraria;
 import co.edu.unicauca.gestion_horarios.infraestructura.inputs.dtos.FranjaHorariaDTOPeticion;
 import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.respositorios.FranjaHorariaRepository;
 import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.respositorios.CursoRepository;
@@ -43,7 +43,7 @@ public class CrearFranjaHorariaCasoUso {
         }
 
         // Verificación de disponibilidad del docente
-        boolean docenteOcupado = franjaHorariaRepository.isDocenteOcupado(dto.getCursoId(), dto.getDia(), dto.getHoraInicio(), dto.getHoraFin());
+        boolean docenteOcupado = franjaHorariaRepository.countDocenteOcupado(dto.getCursoId(), dto.getDia(), dto.getHoraInicio(), dto.getHoraFin()) > 0;
         if (docenteOcupado) {
             throw new IllegalArgumentException("El docente está ocupado en el horario solicitado.");
         }

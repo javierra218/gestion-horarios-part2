@@ -1,12 +1,8 @@
 package co.edu.unicauca.gestion_horarios.dominio.modelos;
 
 import java.sql.Time;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 @Entity
 public class FranjaHoraria {
@@ -19,9 +15,11 @@ public class FranjaHoraria {
     private Time horaFin;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnoreProperties({"franjasHorarias", "docentes"}) // Evita serializar listas recursivas en Curso
     private Curso curso;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("nombre") // Incluye solo el nombre del EspacioFisico, omitiendo otras propiedades
     private EspacioFisico espacioFisico;
 
     // Constructor sin argumentos

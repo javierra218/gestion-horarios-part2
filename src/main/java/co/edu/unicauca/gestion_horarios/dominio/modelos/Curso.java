@@ -3,14 +3,8 @@ package co.edu.unicauca.gestion_horarios.dominio.modelos;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class Curso {
@@ -27,8 +21,10 @@ public class Curso {
     private List<Docente> docentes = new ArrayList<>();
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Evita la serialización de la lista de franjas para prevenir la recursividad
     private List<FranjaHoraria> franjasHorarias = new ArrayList<>();
-    
+
+    // Getters y Setters
     public String getNombre() {
         return nombre;
     }
@@ -60,6 +56,4 @@ public class Curso {
     public void setFranjasHorarias(List<FranjaHoraria> franjasHorarias) {
         this.franjasHorarias = franjasHorarias;
     }
-
-    
 }
