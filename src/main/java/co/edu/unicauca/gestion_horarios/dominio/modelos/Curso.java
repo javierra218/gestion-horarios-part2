@@ -28,4 +28,38 @@ public class Curso {
 
     @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FranjaHoraria> franjasHorarias = new ArrayList<>();
+    
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Asignatura getAsignatura() {
+        return asignatura;
+    }
+
+    public void setAsignatura(Asignatura asignatura) {
+        this.asignatura = asignatura;
+    }
+
+    public List<Docente> getDocentes() {
+        return docentes;
+    }
+
+    public void setDocentes(List<Docente> docentes) {
+        this.docentes = docentes;
+    }
+
+    public List<FranjaHoraria> getFranjasHorarias() {
+        return franjasHorarias;
+    }
+
+    public void setFranjasHorarias(List<FranjaHoraria> franjasHorarias) {
+        this.franjasHorarias = franjasHorarias;
+    }
+
+    
 }

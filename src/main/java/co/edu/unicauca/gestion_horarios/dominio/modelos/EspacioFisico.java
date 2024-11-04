@@ -16,5 +16,9 @@ public class EspacioFisico {
     private String nombre;
 
     private int capacidad;
+
+    public String getNombre() {
+        return nombre;
+    }
 }
 
