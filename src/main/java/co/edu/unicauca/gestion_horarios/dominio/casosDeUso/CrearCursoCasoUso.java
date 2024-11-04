@@ -18,14 +18,16 @@ import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.res
 @Service
 public class CrearCursoCasoUso {
 
-    @Autowired
-    private CursoRepository cursoRepository;
+    private final CursoRepository cursoRepository;
+    private final AsignaturaRepository asignaturaRepository;
+    private final DocenteRepository docenteRepository;
 
     @Autowired
-    private AsignaturaRepository asignaturaRepository;
-
-    @Autowired
-    private DocenteRepository docenteRepository;
+    public CrearCursoCasoUso(CursoRepository cursoRepository, AsignaturaRepository asignaturaRepository, DocenteRepository docenteRepository) {
+        this.cursoRepository = cursoRepository;
+        this.asignaturaRepository = asignaturaRepository;
+        this.docenteRepository = docenteRepository;
+    }
 
     public Curso crearCurso(CursoDTOPeticion dto) {
         Optional<Asignatura> asignaturaOpt = asignaturaRepository.findByCodigo(dto.getCodigoAsignatura());

@@ -9,8 +9,12 @@ import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.res
 @Service
 public class CrearAsignaturaCasoUso {
 
+    private final AsignaturaRepository asignaturaRepository;
+
     @Autowired
-    private AsignaturaRepository asignaturaRepository;
+    public CrearAsignaturaCasoUso(AsignaturaRepository asignaturaRepository) {
+        this.asignaturaRepository = asignaturaRepository;
+    }
 
     public Asignatura crearAsignatura(AsignaturaDTOPeticion dto) {
         Asignatura asignatura = new Asignatura();

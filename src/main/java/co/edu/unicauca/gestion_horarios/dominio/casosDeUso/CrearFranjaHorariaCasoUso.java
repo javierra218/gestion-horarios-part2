@@ -16,14 +16,16 @@ import java.util.Optional;
 @Service
 public class CrearFranjaHorariaCasoUso {
 
-    @Autowired
-    private FranjaHorariaRepository franjaHorariaRepository;
+    private final FranjaHorariaRepository franjaHorariaRepository;
+    private final CursoRepository cursoRepository;
+    private final EspacioFisicoRepository espacioFisicoRepository;
 
     @Autowired
-    private CursoRepository cursoRepository;
-
-    @Autowired
-    private EspacioFisicoRepository espacioFisicoRepository;
+    public CrearFranjaHorariaCasoUso(FranjaHorariaRepository franjaHorariaRepository, CursoRepository cursoRepository, EspacioFisicoRepository espacioFisicoRepository) {
+        this.franjaHorariaRepository = franjaHorariaRepository;
+        this.cursoRepository = cursoRepository;
+        this.espacioFisicoRepository = espacioFisicoRepository;
+    }
 
     public FranjaHoraria crearFranjaHoraria(FranjaHorariaDTOPeticion dto) {
         Optional<Curso> curso = cursoRepository.findById(dto.getCursoId());
@@ -36,19 +38,16 @@ public class CrearFranjaHorariaCasoUso {
             throw new IllegalArgumentException("El espacio físico especificado no existe.");
         }
 
-        // Verificación de disponibilidad del espacio físico
         boolean espacioOcupado = franjaHorariaRepository.isEspacioFisicoOcupado(dto.getEspacioFisicoId(), dto.getDia(), dto.getHoraInicio(), dto.getHoraFin());
         if (espacioOcupado) {
             throw new IllegalArgumentException("El espacio físico está ocupado en el horario solicitado.");
         }
 
-        // Verificación de disponibilidad del docente
         boolean docenteOcupado = franjaHorariaRepository.countDocenteOcupado(dto.getCursoId(), dto.getDia(), dto.getHoraInicio(), dto.getHoraFin()) > 0;
         if (docenteOcupado) {
             throw new IllegalArgumentException("El docente está ocupado en el horario solicitado.");
         }
 
-        // Crear y guardar la franja horaria
         FranjaHoraria franjaHoraria = new FranjaHoraria();
         franjaHoraria.setCurso(curso.get());
         franjaHoraria.setEspacioFisico(espacioFisico.get());

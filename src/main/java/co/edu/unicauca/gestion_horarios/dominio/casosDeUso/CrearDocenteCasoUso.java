@@ -12,8 +12,12 @@ import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.res
 @Service
 public class CrearDocenteCasoUso implements CrearDocentePort {
 
+    private final DocenteRepository docenteRepository;
+
     @Autowired
-    private DocenteRepository docenteRepository;
+    public CrearDocenteCasoUso(DocenteRepository docenteRepository) {
+        this.docenteRepository = docenteRepository;
+    }
 
     @Override
     public Docente crearDocente(Docente docente) {
