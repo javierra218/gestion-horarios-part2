@@ -1,6 +1,7 @@
 package co.edu.unicauca.gestion_horarios.dominio.casosDeUso;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,10 @@ public class CrearDocenteCasoUso implements CrearDocentePort {
 
     @Override
     public Docente crearDocente(Docente docente) {
+        Optional<Docente> existente = docenteRepository.findByCorreo(docente.getCorreo());
+        if (existente.isPresent()) {
+            throw new IllegalArgumentException("Ya existe un docente con el correo " + docente.getCorreo());
+        }
         return docenteRepository.save(docente);
     }
 

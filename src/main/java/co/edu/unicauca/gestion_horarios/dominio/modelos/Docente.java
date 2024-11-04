@@ -6,6 +6,16 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Docente extends Persona {
+
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Oficina oficina;
+
+    // Getter y Setter para Oficina
+    public Oficina getOficina() {
+        return oficina;
+    }
+
+    public void setOficina(Oficina oficina) {
+        this.oficina = oficina;
+    }
 }
