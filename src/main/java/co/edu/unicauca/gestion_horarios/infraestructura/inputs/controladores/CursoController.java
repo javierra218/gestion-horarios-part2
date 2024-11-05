@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import co.edu.unicauca.gestion_horarios.dominio.casosDeUso.CrearCursoCasoUso;
 import co.edu.unicauca.gestion_horarios.dominio.modelos.Curso;
 import co.edu.unicauca.gestion_horarios.infraestructura.inputs.dtos.CursoDTOPeticion;
-import co.edu.unicauca.gestion_horarios.infraestructura.inputs.mappers.CursoMapper;
 import jakarta.validation.Valid;
 
 @RestController

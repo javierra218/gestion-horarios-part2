@@ -23,7 +23,8 @@ public class CrearCursoCasoUso {
     private final DocenteRepository docenteRepository;
 
     @Autowired
-    public CrearCursoCasoUso(CursoRepository cursoRepository, AsignaturaRepository asignaturaRepository, DocenteRepository docenteRepository) {
+    public CrearCursoCasoUso(CursoRepository cursoRepository, AsignaturaRepository asignaturaRepository,
+            DocenteRepository docenteRepository) {
         this.cursoRepository = cursoRepository;
         this.asignaturaRepository = asignaturaRepository;
         this.docenteRepository = docenteRepository;
@@ -35,12 +36,13 @@ public class CrearCursoCasoUso {
         if (asignaturaOpt.isEmpty()) {
             throw new IllegalArgumentException("La asignatura especificada no existe.");
         }
-    
+
         // Validar si el curso ya existe
         if (cursoRepository.existsByNombreAndAsignatura(dto.getNombre(), asignaturaOpt.get())) {
-            throw new IllegalArgumentException("El curso con el nombre especificado ya existe para la asignatura proporcionada.");
+            throw new IllegalArgumentException(
+                    "El curso con el nombre especificado ya existe para la asignatura proporcionada.");
         }
-    
+
         // Buscar docentes
         List<Docente> docentes = new ArrayList<>();
         for (Integer docenteId : dto.getDocentesIds()) {
@@ -49,10 +51,10 @@ public class CrearCursoCasoUso {
                 throw new IllegalArgumentException("El docente con ID " + docenteId + " no existe.");
             });
         }
-    
+
         // Usar el mapper para convertir DTO a entidad Curso
         Curso curso = CursoMapper.toEntity(dto, asignaturaOpt.get(), docentes);
         return cursoRepository.save(curso);
     }
-    
+
 }

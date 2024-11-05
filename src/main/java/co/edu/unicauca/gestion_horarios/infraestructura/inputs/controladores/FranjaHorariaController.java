@@ -20,7 +20,7 @@ public class FranjaHorariaController {
 
     @Autowired
     private CrearFranjaHorariaCasoUso crearFranjaHorariaCasoUso;
-    
+
     @Autowired
     private ListarFranjasPorDocenteCasoUso listarFranjasPorDocenteCasoUso;
 

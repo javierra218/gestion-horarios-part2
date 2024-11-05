@@ -15,15 +15,16 @@ public class FranjaHoraria {
     private Time horaFin;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonIgnoreProperties({"franjasHorarias", "docentes"}) // Evita serializar listas recursivas en Curso
+    @JsonIgnoreProperties({ "franjasHorarias", "docentes" })
     private Curso curso;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("nombre") // Incluye solo el nombre del EspacioFisico, omitiendo otras propiedades
+    @JsonIgnoreProperties("nombre")
     private EspacioFisico espacioFisico;
 
     // Constructor sin argumentos
-    public FranjaHoraria() {}
+    public FranjaHoraria() {
+    }
 
     // Constructor con argumentos
     public FranjaHoraria(String dia, Time horaInicio, Time horaFin, Curso curso, EspacioFisico espacioFisico) {

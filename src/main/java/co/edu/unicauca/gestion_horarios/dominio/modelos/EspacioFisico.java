@@ -21,4 +21,3 @@ public class EspacioFisico {
         return nombre;
     }
 }
-

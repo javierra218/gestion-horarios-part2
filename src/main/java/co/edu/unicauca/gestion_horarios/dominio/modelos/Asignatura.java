@@ -41,4 +41,3 @@ public class Asignatura {
         this.nombre = nombre;
     }
 }
-

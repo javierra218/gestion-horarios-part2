@@ -22,7 +22,8 @@ public class CrearFranjaHorariaCasoUso {
     private final EspacioFisicoRepository espacioFisicoRepository;
 
     @Autowired
-    public CrearFranjaHorariaCasoUso(FranjaHorariaRepository franjaHorariaRepository, CursoRepository cursoRepository, EspacioFisicoRepository espacioFisicoRepository) {
+    public CrearFranjaHorariaCasoUso(FranjaHorariaRepository franjaHorariaRepository, CursoRepository cursoRepository,
+            EspacioFisicoRepository espacioFisicoRepository) {
         this.franjaHorariaRepository = franjaHorariaRepository;
         this.cursoRepository = cursoRepository;
         this.espacioFisicoRepository = espacioFisicoRepository;

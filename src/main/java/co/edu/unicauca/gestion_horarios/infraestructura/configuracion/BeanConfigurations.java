@@ -18,8 +18,8 @@ public class BeanConfigurations {
 
     @Bean
     public CrearCursoCasoUso crearCursoCasoUso(CursoRepository cursoRepository,
-                                               AsignaturaRepository asignaturaRepository,
-                                               DocenteRepository docenteRepository) {
+            AsignaturaRepository asignaturaRepository,
+            DocenteRepository docenteRepository) {
         return new CrearCursoCasoUso(cursoRepository, asignaturaRepository, docenteRepository);
     }
 
@@ -35,8 +35,8 @@ public class BeanConfigurations {
 
     @Bean
     public CrearFranjaHorariaCasoUso crearFranjaHorariaCasoUso(FranjaHorariaRepository franjaHorariaRepository,
-                                                               CursoRepository cursoRepository,
-                                                               EspacioFisicoRepository espacioFisicoRepository) {
+            CursoRepository cursoRepository,
+            EspacioFisicoRepository espacioFisicoRepository) {
         return new CrearFranjaHorariaCasoUso(franjaHorariaRepository, cursoRepository, espacioFisicoRepository);
     }
 }
