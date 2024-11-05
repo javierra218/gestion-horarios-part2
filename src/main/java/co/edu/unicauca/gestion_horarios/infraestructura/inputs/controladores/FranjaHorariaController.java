@@ -9,10 +9,13 @@ import co.edu.unicauca.gestion_horarios.dominio.casosDeUso.CrearFranjaHorariaCas
 import co.edu.unicauca.gestion_horarios.dominio.casosDeUso.ListarFranjasPorDocenteCasoUso;
 import co.edu.unicauca.gestion_horarios.dominio.modelos.FranjaHoraria;
 import co.edu.unicauca.gestion_horarios.infraestructura.inputs.dtos.FranjaHorariaDTOPeticion;
+import co.edu.unicauca.gestion_horarios.infraestructura.inputs.dtos.FranjaHorariaDTORespuesta;
+import co.edu.unicauca.gestion_horarios.infraestructura.inputs.mappers.FranjaHorariaMapper;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/franjas")
@@ -37,7 +40,14 @@ public class FranjaHorariaController {
     @GetMapping("/docente/{id}")
     public ResponseEntity<?> listarFranjasPorDocente(
             @PathVariable("id") @Min(value = 1, message = "{id.min}") int docenteId) {
+        
         List<FranjaHoraria> franjas = listarFranjasPorDocenteCasoUso.listarFranjasPorDocente(docenteId);
-        return new ResponseEntity<>(franjas, HttpStatus.OK);
+        
+        // Convertir la lista de FranjasHorarias a FranjaHorariaDTORespuesta usando el mapper
+        List<FranjaHorariaDTORespuesta> respuesta = franjas.stream()
+                .map(FranjaHorariaMapper::toDTO)
+                .collect(Collectors.toList());
+        
+        return new ResponseEntity<>(respuesta, HttpStatus.OK);
     }
 }
