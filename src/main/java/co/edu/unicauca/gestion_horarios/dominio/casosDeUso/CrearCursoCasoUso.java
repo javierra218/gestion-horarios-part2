@@ -1,19 +1,19 @@
 package co.edu.unicauca.gestion_horarios.dominio.casosDeUso;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import co.edu.unicauca.gestion_horarios.dominio.modelos.Asignatura;
 import co.edu.unicauca.gestion_horarios.dominio.modelos.Curso;
 import co.edu.unicauca.gestion_horarios.dominio.modelos.Docente;
 import co.edu.unicauca.gestion_horarios.infraestructura.inputs.dtos.CursoDTOPeticion;
+import co.edu.unicauca.gestion_horarios.infraestructura.inputs.mappers.CursoMapper;
 import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.respositorios.AsignaturaRepository;
 import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.respositorios.CursoRepository;
 import co.edu.unicauca.gestion_horarios.infraestructura.outputs.persistencia.respositorios.DocenteRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CrearCursoCasoUso {
@@ -30,12 +30,18 @@ public class CrearCursoCasoUso {
     }
 
     public Curso crearCurso(CursoDTOPeticion dto) {
+        // Buscar asignatura
         Optional<Asignatura> asignaturaOpt = asignaturaRepository.findByCodigo(dto.getCodigoAsignatura());
         if (asignaturaOpt.isEmpty()) {
             throw new IllegalArgumentException("La asignatura especificada no existe.");
         }
-
-        Asignatura asignatura = asignaturaOpt.get();
+    
+        // Validar si el curso ya existe
+        if (cursoRepository.existsByNombreAndAsignatura(dto.getNombre(), asignaturaOpt.get())) {
+            throw new IllegalArgumentException("El curso con el nombre especificado ya existe para la asignatura proporcionada.");
+        }
+    
+        // Buscar docentes
         List<Docente> docentes = new ArrayList<>();
         for (Integer docenteId : dto.getDocentesIds()) {
             Optional<Docente> docenteOpt = docenteRepository.findById(docenteId);
@@ -43,12 +49,10 @@ public class CrearCursoCasoUso {
                 throw new IllegalArgumentException("El docente con ID " + docenteId + " no existe.");
             });
         }
-
-        Curso curso = new Curso();
-        curso.setNombre(dto.getNombre());
-        curso.setAsignatura(asignatura);
-        curso.setDocentes(docentes);
-
+    
+        // Usar el mapper para convertir DTO a entidad Curso
+        Curso curso = CursoMapper.toEntity(dto, asignaturaOpt.get(), docentes);
         return cursoRepository.save(curso);
     }
+    
 }
